@@ -1002,6 +1002,7 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
 .filter-bar { background:white; border-bottom:1px solid var(--g200); padding:14px 24px; position:sticky; top:140px; z-index:98; }
 .filter-bar-inner { max-width:1400px; margin:0 auto; }
 .filter-toggle { display:none; }   /* PC에선 숨김, 모바일에서 활성 */
+.filter-fab { display:none; }      /* 모바일 전용 떠다니는 필터 버튼 */
 .filter-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px; }
 .filter-row:last-child { margin-bottom:0; }
 .filter-label { font-size:17px; font-weight:700; color:var(--navy); min-width:65px; }
@@ -1280,6 +1281,27 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
   .filter-toggle .ft-summary { font-size:12px; color:var(--g600); font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
   .filter-bar.collapsed .ft-icon { transform:rotate(-90deg); }
   .filter-bar.collapsed .filter-bar-inner { display:none; }
+
+  /* 떠다니는 필터 버튼 (FAB) — 항상 우하단 고정, 어느 위치에서도 탭 가능 */
+  .filter-fab {
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; bottom:18px; right:14px; z-index:150;
+    width:52px; height:52px; border-radius:50%;
+    background:var(--coral); color:white; border:0; cursor:pointer;
+    box-shadow:0 4px 14px rgba(216,90,48,.4);
+    transition:transform .15s, background .15s;
+    font-family:inherit;
+  }
+  .filter-fab:active { transform:scale(0.95); }
+  .filter-fab .ff-count {
+    position:absolute; top:-2px; right:-2px;
+    background:white; color:var(--coral);
+    border-radius:12px; min-width:20px; height:20px; padding:0 5px;
+    font-size:11px; font-weight:800;
+    display:none; align-items:center; justify-content:center;
+    border:1.5px solid var(--coral);
+  }
+  .filter-fab[data-show="false"] { display:none; }
   .filter-label { font-size:14px; min-width:48px; }
   .filter-chip { font-size:14px; padding:6px 12px; }
   .filter-count { font-size:13px; }
@@ -1921,6 +1943,14 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
   </div>
 </div>
 
+<!-- 모바일 떠다니는 필터 버튼 (어느 위치에서도 필터 토글 가능) -->
+<button class="filter-fab" id="filter-fab" type="button" onclick="toggleFiltersFab()" aria-label="필터 열기/닫기">
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="white" aria-hidden="true">
+    <path d="M3 6h18v2l-7 8v4l-4 2v-6L3 8V6z"/>
+  </svg>
+  <span class="ff-count" id="filter-fab-count"></span>
+</button>
+
 <footer class="footer">
   <div class="footer-logo">
     <div class="logo-prime" style="border-color:rgba(31,58,95,.3);display:inline-flex;flex-direction:column;align-items:center;padding:3px 8px;border:1.5px solid rgba(31,58,95,.3);border-radius:4px;line-height:1;">
@@ -2451,6 +2481,45 @@ if (window.matchMedia && window.matchMedia('(max-width:768px)').matches
 }
 document.querySelectorAll('.filter-chip[data-filter]').forEach(c => c.addEventListener('click', updateFilterSummary));
 updateFilterSummary();
+
+// ========== 모바일 떠다니는 필터 버튼 (FAB) ==========
+function toggleFiltersFab() {
+  // 지식 베이스 탭에서 누르면 자동으로 상품 비교 탭 전환
+  const compareActive = document.getElementById('main-compare')?.classList.contains('active');
+  if (!compareActive && typeof switchMain === 'function') switchMain('compare');
+
+  const fb = document.querySelector('.filter-bar');
+  if (!fb) return;
+  const wasCollapsed = fb.classList.contains('collapsed');
+  toggleFilters();
+  if (wasCollapsed) {
+    // 방금 펼쳐졌으면 필터바를 시야로 스크롤
+    setTimeout(() => fb.scrollIntoView({ behavior:'smooth', block:'start' }), 80);
+  }
+}
+function updateFilterFabCount() {
+  const el = document.getElementById('filter-fab-count');
+  if (!el) return;
+  const keys = ['range','period','hospital','paytype','insurer'];
+  const active = keys.filter(k => filters[k] && filters[k] !== 'all').length;
+  if (active === 0) {
+    el.textContent = '';
+    el.style.display = 'none';
+  } else {
+    el.textContent = active;
+    el.style.display = 'flex';
+  }
+}
+function syncFabVisibility() {
+  const fab = document.getElementById('filter-fab');
+  if (!fab) return;
+  const compareActive = document.getElementById('main-compare')?.classList.contains('active');
+  fab.dataset.show = compareActive ? 'true' : 'false';
+}
+document.querySelectorAll('.filter-chip[data-filter]').forEach(c => c.addEventListener('click', updateFilterFabCount));
+document.querySelectorAll('.main-tab-btn').forEach(b => b.addEventListener('click', () => setTimeout(syncFabVisibility, 10)));
+updateFilterFabCount();
+syncFabVisibility();
 
 // ========== 업데이트 패널 ==========
 const DEFAULT_PRODUCTS = JSON.parse(JSON.stringify(PRODUCTS)); // 기본값 백업
