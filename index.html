@@ -1002,6 +1002,7 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
 .filter-bar { background:white; border-bottom:1px solid var(--g200); padding:14px 24px; position:sticky; top:140px; z-index:98; }
 .filter-bar-inner { max-width:1400px; margin:0 auto; }
 .filter-toggle { display:none; }   /* PC에선 숨김, 모바일에서 활성 */
+.sticky-bars { display:contents; } /* PC: 흐름에서 빠져 자식 sticky가 정상 동작 */
 .filter-fab { display:none; }      /* 모바일 전용 떠다니는 필터 버튼 */
 .filter-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px; }
 .filter-row:last-child { margin-bottom:0; }
@@ -1253,10 +1254,10 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
   .header-date .date-val { font-size:11px; }
   .update-btn { padding:5px 10px; font-size:12px; }
 
-  /* Sticky 재정렬 — 헤더 비-sticky 기준 */
+  /* Sticky 재정렬 — main-tabs(0)와 .sticky-bars(38) 단일 단위로 stack */
   .main-tabs { top:0; }
-  .age-bar { top:42px; }                  /* main-tabs 실측 ~42px */
-  .filter-bar { top:84px; padding:10px 12px; }
+  .sticky-bars { display:block; position:sticky; top:38px; z-index:99; background:transparent; }
+  .age-bar, .filter-bar { position:static !important; top:auto !important; }
   .legend-bar { padding:8px 12px; font-size:13px; }
 
   /* 메인 탭 */
@@ -1268,9 +1269,9 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
   .age-btn { padding:5px 12px; font-size:13px; }
   .age-hint { font-size:11px; flex-basis:100%; margin-left:0; text-align:right; }
 
-  /* 필터 — sticky 유지 (iframe 환경에서도 안정적) */
-  .filter-bar { padding:0; top:84px; }
-  .filter-bar .filter-bar-inner { padding:10px 12px; border-top:1px solid var(--g100); max-height:calc(100vh - 130px); overflow-y:auto; }
+  /* 필터 — .sticky-bars wrapper가 sticky 담당 */
+  .filter-bar { padding:0; }
+  .filter-bar .filter-bar-inner { padding:10px 12px; border-top:1px solid var(--g100); max-height:calc(100vh - 200px); overflow-y:auto; }
   .filter-toggle {
     display:flex; align-items:center; gap:8px; width:100%;
     padding:10px 12px; background:white; border:0; cursor:pointer;
@@ -1526,6 +1527,7 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
 <!-- ===== 상품 비교 ===== -->
 <div class="main-section active" id="main-compare">
 
+<div class="sticky-bars">
 <div class="age-bar">
   <div class="age-bar-inner">
     <span class="age-label">연령</span>
@@ -1585,6 +1587,7 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
     </div>
   </div>
 </div>
+</div><!-- /sticky-bars -->
 
 <div class="legend-bar">
   <div class="legend-inner">
