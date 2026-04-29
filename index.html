@@ -1227,32 +1227,147 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
 
 /* 모바일 */
 @media(max-width:768px) {
-  .header-inner { padding:8px 12px; gap:8px; }
-  .header-logo .logo-prime { padding:3px 6px; }
-  .header-logo .logo-prime .lp-top { font-size:11px; }
-  .header-logo .logo-dept .ld-name { font-size:17px; }
-  .header-logo .logo-dept .ld-branch { font-size:16px; }
-  .header-title h1 { font-size:17px; }
-  .header-title .subtitle { font-size:16px; }
-  .header-right { flex-direction:column; gap:4px; }
-  .header-date { text-align:center; }
-  .main-tabs { top:46px; }
-  .main-tab-btn { padding:9px 14px; font-size:17px; }
-  .age-bar-inner { padding:8px 12px; gap:8px; }
+  /* 한글 자연스러운 줄바꿈 (자/모 단위 끊김 방지) */
+  body, h1, h2, h3, p, span, div, button, label { word-break:keep-all; overflow-wrap:break-word; }
+  body { font-size:15px; }
+
+  /* 헤더 — 2줄 레이아웃 (로고+버튼 / 타이틀) */
+  .header { position:relative; }       /* 모바일은 sticky 해제 — 공간 확보 */
+  .header-inner { padding:8px 12px; gap:6px; flex-wrap:wrap; align-items:center; }
+  .header-logo { flex-shrink:0; gap:8px; }
+  .header-logo .logo-prime { padding:3px 7px; }
+  .header-logo .logo-prime .lp-top { font-size:12px; letter-spacing:2px; }
+  .header-logo .logo-prime .lp-bot { font-size:7px; }
+  .header-logo .logo-prime .lp-sub { display:none; }
+  .header-logo .logo-divider { height:24px; }
+  .header-logo .logo-dept .ld-name { font-size:14px; }
+  .header-logo .logo-dept .ld-branch { font-size:14px; }
+  .header-title { flex:1 1 100%; order:99; min-width:0; padding-top:6px; border-top:1px solid rgba(255,255,255,.12); margin-top:4px; }
+  .header-title h1 { font-size:16px; line-height:1.3; white-space:normal; }
+  .header-title .subtitle { font-size:12px; opacity:.55; margin-top:2px; }
+  .header-right { flex-direction:row; gap:8px; align-items:center; margin-left:auto; }
+  .header-date { text-align:right; line-height:1.2; }
+  .header-date .date-label { font-size:10px; }
+  .header-date .date-val { font-size:11px; }
+  .update-btn { padding:5px 10px; font-size:12px; }
+
+  /* Sticky 재정렬 — 헤더 비-sticky 기준 */
+  .main-tabs { top:0; }
+  .age-bar { top:42px; }                  /* main-tabs 실측 ~42px */
+  .filter-bar { top:84px; padding:10px 12px; }
+  .legend-bar { padding:8px 12px; font-size:13px; }
+
+  /* 메인 탭 */
+  .main-tab-btn { padding:9px 14px; font-size:15px; }
+
+  /* 연령바 */
+  .age-bar-inner { padding:8px 12px; gap:6px; }
+  .age-label { font-size:13px; }
   .age-btn { padding:5px 12px; font-size:13px; }
-  .age-hint { font-size:11px; }
-  .filter-bar { top:126px; padding:10px 12px; }
-  .filter-chip { font-size:16px; padding:4px 8px; }
+  .age-hint { font-size:11px; flex-basis:100%; margin-left:0; text-align:right; }
+
+  /* 필터 */
+  .filter-label { font-size:14px; min-width:48px; }
+  .filter-chip { font-size:14px; padding:6px 12px; }
+  .filter-count { font-size:13px; }
+  .sort-select { font-size:14px; padding:5px 10px; }
+
+  /* 컨테이너 */
   .container { padding:12px 12px 40px; }
+
+  /* 상품카드 */
+  .card-header { padding:10px 12px; gap:6px; }
+  .card-range, .card-period { font-size:13px; padding:3px 8px; }
+  .card-hospital { font-size:13px; padding:5px 10px; }
+  .card-pstruct { font-size:11px; padding:4px 10px; margin-left:0; }
+
+  /* 지급방식 4컬럼 */
   .card-pay-bar { grid-template-columns:repeat(4,1fr); }
-  .pay-cell { padding:8px 4px; }
-  .pay-cell-label { font-size:16px; }
-  .pay-cell-value { font-size:16px; padding:3px 8px; }
-  .insurers-grid { grid-template-columns:1fr; }
-  .ins-premium strong { font-size:16px; }
-  .update-panel { width:100%; right:-100%; }
-  .profile-container,.knowledge-container { padding:12px 12px 40px; }
+  .pay-cell { padding:8px 3px; }
+  .pay-cell-label { font-size:11px; margin-bottom:4px; letter-spacing:-.3px; }
+  .pay-cell-value { font-size:13px; padding:3px 6px; letter-spacing:-.5px; }
+  .pay-cell.is-회당 .pay-cell-value { font-size:14px; }
+
+  /* 보험사 그리드 */
+  .insurers-grid { grid-template-columns:1fr; padding:10px 12px; gap:8px; }
+  .ins-cell { padding:10px 12px; }
+  .ins-name { font-size:15px; }
+  .ins-clause { font-size:14px; padding:7px 9px; }
+  .ins-premium .g-item { font-size:14px; }
+  .ins-premium strong { font-size:18px; }
+  .dit { font-size:13px; padding:3px 7px; }
+  .ins-tag { font-size:11px; }
+
+  /* 카드 한도/공지 */
+  .card-limit { font-size:13px; padding:7px 12px; }
+  .emb-surg-notice { font-size:13px; padding:9px 12px; }
+
+  /* 업데이트 패널 — 풀스크린 */
+  .update-panel { width:100vw; right:-100vw; max-width:none; }
+  .update-panel.open { right:0; }
+  .up-header h2 { font-size:15px; }
+  .up-tab { font-size:14px; padding:9px 6px; }
+  .up-body { padding:14px 16px; }
+  .up-editor { font-size:13px; min-height:300px; }
+
+  /* 프로파일 / 추천 */
+  .profile-container, .knowledge-container { padding:12px 12px 40px; }
+  .profile-intro { padding:14px 16px; }
+  .profile-intro h2 { font-size:16px; }
+  .profile-intro p { font-size:14px; }
+  .profile-form { padding:16px; }
+  .form-label { font-size:15px; }
+  .opt-chip { font-size:14px; padding:7px 12px; }
+  .btn-pri, .btn-sec { font-size:15px; padding:9px 16px; }
+  .rec-card { padding:14px 16px; }
   .rec-pay-grid { grid-template-columns:repeat(2,1fr); }
+  .rec-prem-box { gap:14px; padding:8px 12px; flex-wrap:wrap; }
+  .rec-reason { font-size:14px; padding:9px 12px; }
+
+  /* 지식 카드 */
+  .knowledge-nav { gap:5px; padding:10px; }
+  .kn-btn { font-size:13px; padding:7px 12px; }
+  .kn-card { padding:16px 14px; }
+  .kn-card h2 { font-size:18px; }
+  .kn-card h3 { font-size:15px; }
+  .kn-card p { font-size:14px; }
+  .highlight, .key-point, .warning, .script-box { font-size:14px; padding:12px 14px; }
+  .stat-row { font-size:14px; }
+
+  /* 표 — 가로 스크롤 */
+  .kn-card table, .sim-table { font-size:13px; display:block; overflow-x:auto; white-space:nowrap; }
+  .kn-card table th, .kn-card table td { padding:6px 8px; }
+  .sim-table th, .sim-table td { padding:6px 8px; }
+
+  /* 약관 카드 / 모달 */
+  .clause-card { padding:12px 14px; }
+  .cc-summary { font-size:14px; }
+  .modal-bg { padding:10px; }
+  .modal { max-height:92vh; }
+  .modal-head { padding:14px 16px; }
+  .modal-head h2 { font-size:15px; }
+  .modal-body { padding:14px 16px; }
+  .quote-box, .clause-verdict, .clause-impact { font-size:14px; padding:10px 13px; }
+
+  /* 푸터 */
+  .footer { font-size:13px; padding:16px; }
+}
+
+/* 소형 폰 (≤380px) */
+@media(max-width:380px) {
+  body { font-size:14px; }
+  .header-logo { gap:6px; }
+  .header-logo .logo-divider { display:none; }
+  .header-logo .logo-dept .ld-name { font-size:13px; }
+  .header-logo .logo-dept .ld-branch { font-size:13px; }
+  .header-title h1 { font-size:15px; }
+  .header-title .subtitle { display:none; }
+  .header-date .date-label, .header-date .date-val { font-size:10px; }
+  .update-btn { padding:4px 8px; font-size:11px; }
+  .pay-cell-label { font-size:10px; }
+  .pay-cell-value { font-size:12px; padding:2px 4px; }
+  .pay-cell.is-회당 .pay-cell-value { font-size:13px; }
+  .filter-chip { font-size:13px; padding:5px 10px; }
 }
 
 /* 업데이트 버튼/패널 */
