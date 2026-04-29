@@ -1430,8 +1430,11 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
 <body>
 
 <!-- 비밀번호 화면 -->
-<!-- 비밀번호 변경: 아래 PASSWORD 값만 수정하세요 -->
-<script>const PASSWORD = '2026';</script>
+<!-- 비밀번호 변경: 아래 두 값만 수정하세요 -->
+<script>
+const PASSWORD = '2026';            // 페이지 진입 비밀번호
+const EDIT_PASSWORD = 'yb0401';     // 데이터 편집 패널(JSON/간편수정) 비밀번호
+</script>
 <div id="lock-screen" style="position:fixed;inset:0;z-index:9999;background:var(--navy);display:flex;align-items:center;justify-content:center;">
   <div style="text-align:center;color:white;">
     <div style="margin-bottom:20px;">
@@ -2477,10 +2480,25 @@ function showUpdateStatus(ts) {
   }
 }
 
+// 편집 패널 비밀번호 인증 (같은 탭에선 1회만)
+const EDIT_AUTH_KEY = 'edit-pw-ok';
+function ensureEditAuth() {
+  if (sessionStorage.getItem(EDIT_AUTH_KEY) === '1') return true;
+  const pw = prompt('데이터 편집 비밀번호를 입력하세요');
+  if (pw === null) return false;          // 취소
+  if (pw === EDIT_PASSWORD) {
+    sessionStorage.setItem(EDIT_AUTH_KEY, '1');
+    return true;
+  }
+  alert('비밀번호가 틀립니다');
+  return false;
+}
+
 function toggleUpdatePanel() {
   const panel = document.getElementById('update-panel');
   const overlay = document.getElementById('up-overlay');
   const isOpen = panel.classList.contains('open');
+  if (!isOpen && !ensureEditAuth()) return;  // 열 때만 비번 체크
   panel.classList.toggle('open');
   overlay.classList.toggle('open');
   if (!isOpen) {
