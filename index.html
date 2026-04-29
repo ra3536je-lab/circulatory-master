@@ -1269,8 +1269,8 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
   .age-hint { font-size:11px; flex-basis:100%; margin-left:0; text-align:right; }
 
   /* 필터 */
-  .filter-bar { padding:0; }
-  .filter-bar .filter-bar-inner { padding:10px 12px; border-top:1px solid var(--g100); }
+  .filter-bar { padding:0; top:84px; }   /* main-tabs(0~42) + age-bar(42~84) 밑에 stick */
+  .filter-bar .filter-bar-inner { padding:10px 12px; border-top:1px solid var(--g100); max-height:calc(100vh - 130px); overflow-y:auto; }
   .filter-toggle {
     display:flex; align-items:center; gap:8px; width:100%;
     padding:10px 12px; background:white; border:0; cursor:pointer;
