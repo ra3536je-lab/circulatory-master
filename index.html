@@ -1001,6 +1001,7 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
 
 .filter-bar { background:white; border-bottom:1px solid var(--g200); padding:14px 24px; position:sticky; top:140px; z-index:98; }
 .filter-bar-inner { max-width:1400px; margin:0 auto; }
+.filter-toggle { display:none; }   /* PC에선 숨김, 모바일에서 활성 */
 .filter-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px; }
 .filter-row:last-child { margin-bottom:0; }
 .filter-label { font-size:17px; font-weight:700; color:var(--navy); min-width:65px; }
@@ -1267,6 +1268,18 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
   .age-hint { font-size:11px; flex-basis:100%; margin-left:0; text-align:right; }
 
   /* 필터 */
+  .filter-bar { padding:0; }
+  .filter-bar .filter-bar-inner { padding:10px 12px; border-top:1px solid var(--g100); }
+  .filter-toggle {
+    display:flex; align-items:center; gap:8px; width:100%;
+    padding:10px 12px; background:white; border:0; cursor:pointer;
+    font-family:inherit; text-align:left; color:var(--navy);
+  }
+  .filter-toggle .ft-icon { font-size:11px; transition:transform .2s; flex-shrink:0; color:var(--coral); }
+  .filter-toggle .ft-label { font-size:14px; font-weight:700; flex-shrink:0; }
+  .filter-toggle .ft-summary { font-size:12px; color:var(--g600); font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
+  .filter-bar.collapsed .ft-icon { transform:rotate(-90deg); }
+  .filter-bar.collapsed .filter-bar-inner { display:none; }
   .filter-label { font-size:14px; min-width:48px; }
   .filter-chip { font-size:14px; padding:6px 12px; }
   .filter-count { font-size:13px; }
@@ -1502,6 +1515,11 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
 </div>
 
 <div class="filter-bar">
+  <button class="filter-toggle" type="button" onclick="toggleFilters()" aria-expanded="true">
+    <span class="ft-icon">▼</span>
+    <span class="ft-label">필터</span>
+    <span class="ft-summary" id="filter-summary">기본 (전체)</span>
+  </button>
   <div class="filter-bar-inner">
     <div class="filter-row">
       <span class="filter-label">보장범위</span>
@@ -2402,6 +2420,34 @@ function updateHash() {
 document.querySelectorAll('.filter-chip[data-filter]').forEach(c => c.addEventListener('click', updateHash));
 // 페이지 로드 시 hash 적용
 applyHash();
+
+// ========== 모바일 필터 접기/펼치기 ==========
+function toggleFilters() {
+  const fb = document.querySelector('.filter-bar');
+  if (!fb) return;
+  fb.classList.toggle('collapsed');
+  const collapsed = fb.classList.contains('collapsed');
+  const btn = fb.querySelector('.filter-toggle');
+  if (btn) btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  try { sessionStorage.setItem('filter-collapsed', collapsed ? '1' : '0'); } catch(e){}
+}
+function updateFilterSummary() {
+  const summary = document.getElementById('filter-summary');
+  if (!summary) return;
+  const keys = ['range','period','hospital','paytype','insurer'];
+  const active = keys.filter(k => filters[k] && filters[k] !== 'all').length;
+  summary.textContent = active === 0 ? '기본 (전체)' : `${active}개 조건 적용중 · 탭하여 펼치기`;
+}
+// 모바일 + 직전 세션이 접힘 상태면 복원
+if (window.matchMedia && window.matchMedia('(max-width:768px)').matches
+    && sessionStorage.getItem('filter-collapsed') === '1') {
+  const fb = document.querySelector('.filter-bar');
+  if (fb) fb.classList.add('collapsed');
+  const ftBtn = document.querySelector('.filter-toggle');
+  if (ftBtn) ftBtn.setAttribute('aria-expanded','false');
+}
+document.querySelectorAll('.filter-chip[data-filter]').forEach(c => c.addEventListener('click', updateFilterSummary));
+updateFilterSummary();
 
 // ========== 업데이트 패널 ==========
 const DEFAULT_PRODUCTS = JSON.parse(JSON.stringify(PRODUCTS)); // 기본값 백업
