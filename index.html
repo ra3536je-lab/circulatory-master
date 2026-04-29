@@ -1268,15 +1268,8 @@ body { font-family:'현대하모니','현대하모니 M',-apple-system,sans-seri
   .age-btn { padding:5px 12px; font-size:13px; }
   .age-hint { font-size:11px; flex-basis:100%; margin-left:0; text-align:right; }
 
-  /* 필터 — 모바일에선 sticky 비활성, JS가 동적으로 fixed 전환 */
-  .filter-bar { padding:0; position:static !important; top:auto !important; }
-  .filter-bar.m-fixed {
-    position:fixed !important;
-    left:0; right:0; width:100%;
-    z-index:98;
-    box-shadow:0 4px 10px rgba(0,0,0,.1);
-    background:white;
-  }
+  /* 필터 — sticky 유지 (iframe 환경에서도 안정적) */
+  .filter-bar { padding:0; top:84px; }
   .filter-bar .filter-bar-inner { padding:10px 12px; border-top:1px solid var(--g100); max-height:calc(100vh - 130px); overflow-y:auto; }
   .filter-toggle {
     display:flex; align-items:center; gap:8px; width:100%;
@@ -2528,72 +2521,10 @@ document.querySelectorAll('.main-tab-btn').forEach(b => b.addEventListener('clic
 updateFilterFabCount();
 syncFabVisibility();
 
-// ========== 모바일 필터바 동적 fixed 전환 ==========
-// sticky가 환경(iOS Safari/일부 안드로이드)에 따라 깨지는 경우 대비
-// 정확한 main-tabs+age-bar 높이를 측정해 동적으로 fixed 전환/해제
-function syncFilterMobileFixed() {
-  if (window.innerWidth > 768) return;
-  const fb = document.querySelector('.filter-bar');
-  const mainSec = document.getElementById('main-compare');
-  if (!fb || !mainSec || !mainSec.classList.contains('active')) return;
-
-  const mainTabs = document.querySelector('.main-tabs');
-  const ageBar = document.querySelector('.age-bar');
-  if (!mainTabs || !ageBar) return;
-
-  const topOffset = mainTabs.offsetHeight + ageBar.offsetHeight;
-  let placeholder = document.getElementById('filter-bar-placeholder');
-
-  if (placeholder) {
-    // 현재 fixed 상태 — 위로 다시 스크롤하면 해제
-    const phTop = placeholder.getBoundingClientRect().top;
-    if (phTop >= topOffset) {
-      fb.classList.remove('m-fixed');
-      fb.style.top = '';
-      placeholder.remove();
-    } else {
-      // 여전히 fixed 유지, top만 동적 갱신 (회전/리사이즈 대비)
-      fb.style.top = topOffset + 'px';
-      placeholder.style.height = fb.offsetHeight + 'px';
-    }
-  } else {
-    // 현재 정상 흐름 — 필터바가 topOffset 이하로 올라오면 fixed로 전환
-    const fbTop = fb.getBoundingClientRect().top;
-    if (fbTop <= topOffset) {
-      placeholder = document.createElement('div');
-      placeholder.id = 'filter-bar-placeholder';
-      placeholder.style.height = fb.offsetHeight + 'px';
-      fb.parentNode.insertBefore(placeholder, fb);
-      fb.classList.add('m-fixed');
-      fb.style.top = topOffset + 'px';
-    }
-  }
-}
-function resetFilterMobileFixed() {
-  const fb = document.querySelector('.filter-bar');
-  const ph = document.getElementById('filter-bar-placeholder');
-  if (fb) {
-    fb.classList.remove('m-fixed');
-    fb.style.top = '';
-  }
-  ph?.remove();
-}
-window.addEventListener('scroll', syncFilterMobileFixed, { passive:true });
-window.addEventListener('resize', () => {
-  resetFilterMobileFixed();
-  setTimeout(syncFilterMobileFixed, 50);
-}, { passive:true });
-// 탭 전환 / 필터 펼침-접힘 시에도 placeholder 높이 갱신
-const _origToggleFilters = toggleFilters;
-toggleFilters = function() {
-  _origToggleFilters.apply(this, arguments);
-  setTimeout(() => {
-    const fb = document.querySelector('.filter-bar');
-    const ph = document.getElementById('filter-bar-placeholder');
-    if (fb && ph) ph.style.height = fb.offsetHeight + 'px';
-  }, 50);
-};
-syncFilterMobileFixed();
+// 이전 버전이 남긴 placeholder 정리 (캐시된 사용자 대비)
+(function cleanupOldPlaceholder() {
+  document.getElementById('filter-bar-placeholder')?.remove();
+})();
 
 // ========== 업데이트 패널 ==========
 const DEFAULT_PRODUCTS = JSON.parse(JSON.stringify(PRODUCTS)); // 기본값 백업
