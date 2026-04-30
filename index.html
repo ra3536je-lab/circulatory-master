@@ -1683,7 +1683,7 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
   <div class="knowledge-container">
     <div class="knowledge-nav">
       <button class="kn-btn active" data-kn="overview" onclick="switchKn('overview')">개요</button>
-      <button class="kn-btn" data-kn="classification" onclick="switchKn('classification')">5축 분류</button>
+      <button class="kn-btn" data-kn="classification" onclick="switchKn('classification')">분류 기준</button>
       <button class="kn-btn" data-kn="range-compare" onclick="switchKn('range-compare')">뇌/허혈 vs 순환계</button>
       <button class="kn-btn" data-kn="thrombectomy" onclick="switchKn('thrombectomy')">혈전제거술</button>
       <button class="kn-btn" data-kn="hospital" onclick="switchKn('hospital')">병원 등급</button>
@@ -1706,21 +1706,21 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
       </div>
     </div>
 
-    <!-- 5축 분류 -->
+    <!-- 분류 기준 -->
     <div class="kn-section" id="kn-classification">
       <div class="kn-card">
-        <h2>순환계 주요치료비 5축 분류 체계</h2>
-        <p>5개 분류축의 조합으로 상품을 분석합니다. 각 축을 이해해야 같은 조건 상품끼리 비교 가능합니다.</p>
-        <h3>1축 - 보장범위 (좁음 -> 넓음)</h3>
+        <h2>순환계 주요치료비 5가지 분류 기준</h2>
+        <p>아래 5가지 기준의 조합으로 상품을 분석합니다. 각 기준을 이해해야 같은 조건 상품끼리 비교 가능합니다.</p>
+        <h3>1. 보장범위 (좁음 → 넓음)</h3>
         <table><tr><td>2대질병(뇌졸중/심근경색)</td><td>가장 좁음. 뇌졸중/급성심근경색만</td></tr><tr><td>2대질병(뇌/허혈)</td><td>뇌혈관+허혈성심장 확장</td></tr><tr><td>2대질병(뇌/심장)</td><td>뇌/심장 관련 질환 전반</td></tr><tr><td>순환계(3-5종)</td><td>가장 넓음. 대동맥/부정맥/정맥 포함</td></tr></table>
-        <h3>2축 - 보장기간</h3>
+        <h3>2. 보장기간</h3>
         <table><tr><td>10년형</td><td>진단 후 10년. 저렴하지만 고점 구간 미커버</td></tr><tr><td>만기형</td><td>보험기간 끝까지. 평생 보장</td></tr></table>
-        <h3>3축 - 병원범위 (좁음 -> 넓음)</h3>
+        <h3>3. 병원범위 (좁음 → 넓음)</h3>
         <table><tr><td>상급종합</td><td>전국 47곳. 가장 좁고 저렴</td></tr><tr><td>종합병원</td><td>상급종합+종합병원</td></tr><tr><td>전체(요양병원 제외)</td><td>가장 넓음</td></tr></table>
-        <h3>4축 - 지급방식 (유리 -> 제한)</h3>
+        <h3>4. 지급방식 (유리 → 제한)</h3>
         <table><tr><td>회당</td><td>수술 2회 -> 2회 다 지급. 가장 유리</td></tr><tr><td>연1회</td><td>담보별 각각 연1회</td></tr><tr><td>통합1회</td><td>4개 담보 중 1건만. 사실상 진단비</td></tr><tr><td>특정급여</td><td>수가코드 기반. 혈전제거술/스텐트/색전술 포함되나 통합 연1회</td></tr></table>
         <div class="highlight"><b>혈전제거 "수술동일" 규칙:</b> 혈전제거 별도 담보가 없는 상품은 혈전제거술이 수술에 포함됩니다. 수술이 회당이면 혈전제거도 각각 지급, 수술이 연1회면 혈전제거와 합쳐서 연1회, 통합1회면 전체 1건만 지급.</div>
-        <h3>5축 - 담보 구성</h3>
+        <h3>5. 담보 구성</h3>
         <table><tr><td>통합형</td><td>4개 담보를 하나의 한도로 통합</td></tr><tr><td>분리형</td><td>담보별 별도 보험료/한도</td></tr></table>
       </div>
     </div>
