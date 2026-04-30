@@ -1684,11 +1684,15 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
     <div class="knowledge-nav">
       <button class="kn-btn active" data-kn="overview" onclick="switchKn('overview')">개요</button>
       <button class="kn-btn" data-kn="classification" onclick="switchKn('classification')">분류 기준</button>
+      <button class="kn-btn" data-kn="medical-stats" onclick="switchKn('medical-stats')">의료 통계</button>
       <button class="kn-btn" data-kn="range-compare" onclick="switchKn('range-compare')">뇌/허혈 vs 순환계</button>
       <button class="kn-btn" data-kn="thrombectomy" onclick="switchKn('thrombectomy')">혈전제거술</button>
       <button class="kn-btn" data-kn="hospital" onclick="switchKn('hospital')">병원 등급</button>
       <button class="kn-btn" data-kn="clauses" onclick="switchKn('clauses')">약관 분석</button>
+      <button class="kn-btn" data-kn="case-study" onclick="switchKn('case-study')">케이스 스터디</button>
       <button class="kn-btn" data-kn="scripts" onclick="switchKn('scripts')">상담 화법</button>
+      <button class="kn-btn" data-kn="objections" onclick="switchKn('objections')">거절 처리</button>
+      <button class="kn-btn" data-kn="glossary" onclick="switchKn('glossary')">용어 사전</button>
     </div>
 
     <!-- 개요 -->
@@ -1722,6 +1726,84 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
         <div class="highlight"><b>혈전제거 "수술동일" 규칙:</b> 혈전제거 별도 담보가 없는 상품은 혈전제거술이 수술에 포함됩니다. 수술이 회당이면 혈전제거도 각각 지급, 수술이 연1회면 혈전제거와 합쳐서 연1회, 통합1회면 전체 1건만 지급.</div>
         <h3>5. 담보 구성</h3>
         <table><tr><td>통합형</td><td>4개 담보를 하나의 한도로 통합</td></tr><tr><td>분리형</td><td>담보별 별도 보험료/한도</td></tr></table>
+      </div>
+    </div>
+
+    <!-- 의료 통계 -->
+    <div class="kn-section" id="kn-medical-stats">
+      <div class="kn-card">
+        <h2>순환계 의료 통계</h2>
+        <p style="font-size:14px;color:var(--g600);margin-bottom:14px;">출처: 질병관리청 KDCA 2023 · 대한뇌졸중학회 Fact Sheet 2024 · HIRA 2021</p>
+
+        <h3>1. 연간 발생 규모</h3>
+        <table>
+          <tr><th>질환</th><th>환자 수</th><th>10년 추이</th><th>성비(남:여)</th></tr>
+          <tr><td>뇌졸중</td><td>113,098건</td><td>+9.5%</td><td>1.2:1</td></tr>
+          <tr><td>심근경색</td><td>34,768건</td><td><b>+54.5%</b></td><td>2.9:1</td></tr>
+        </table>
+
+        <h3>2. 치명률</h3>
+        <table>
+          <tr><th>질환</th><th>30일</th><th>1년</th></tr>
+          <tr><td>뇌졸중</td><td>7.5%</td><td>18~22%</td></tr>
+          <tr><td>65세+ 뇌졸중</td><td>-</td><td><b>31.2%</b></td></tr>
+          <tr><td>심근경색</td><td>8.9%</td><td>16.1%</td></tr>
+        </table>
+
+        <h3>3. 재발률 — "수술 회당" 가치의 핵심 근거</h3>
+        <ul style="font-size:16px;line-height:1.8;color:var(--g800);padding-left:20px;">
+          <li>뇌졸중 재발률 <b>20.4%</b> (5명 중 1명) · KDCA 2022</li>
+          <li>1년 내 재시술 8~15% (관상동맥)</li>
+          <li>재발의 <b>85~90%가 발병 후 10년 내</b> 집중 → 10년형도 실질 90% 커버</li>
+        </ul>
+
+        <h3>4. 핵심 시술 시행률</h3>
+        <table>
+          <tr><th>시술</th><th>시행률</th><th>약관 적용</th></tr>
+          <tr><td>뇌경색 → tPA(혈전용해)</td><td>6.1%</td><td>혈전용해 담보 필수</td></tr>
+          <tr><td>뇌경색 → 기계적 혈전제거(EVT)</td><td>10.1%</td><td>혈전제거 담보 필수</td></tr>
+          <tr><td>심근경색 → PCI(스텐트)</td><td><b>94%</b></td><td>"수술" 인정 다수</td></tr>
+        </table>
+
+        <h3>5. 골든타임 효과</h3>
+        <table>
+          <tr><th>내원 시점</th><th>재개통률</th></tr>
+          <tr><td>4.5시간 이내</td><td><b>42%</b></td></tr>
+          <tr><td>이후</td><td>10.7%</td></tr>
+        </table>
+
+        <h3>6. 연령별 발생률 (10만명당)</h3>
+        <table>
+          <tr><th>연령대</th><th>발생률</th></tr>
+          <tr><td>30대</td><td>~60</td></tr>
+          <tr><td>40대</td><td>~100</td></tr>
+          <tr><td>50대</td><td>~250</td></tr>
+          <tr><td>60대</td><td>~600</td></tr>
+          <tr><td>70대</td><td>~1,200</td></tr>
+          <tr><td>80세 이상</td><td><b>1,508</b></td></tr>
+        </table>
+        <div class="key-point"><b>35세 가입자 기준:</b> 평생 누적 발병률 약 <b>30%</b> (3명 중 1명) · 발병의 <b>80% 이상이 60세 이후</b> 집중</div>
+
+        <h3>약관 해석 주의 — 영업현장 필수</h3>
+        <div class="warning">
+          <ul style="padding-left:20px;line-height:1.8;margin:0;">
+            <li><b>PCI(스텐트)</b> : "절단·절제" 정의상 분쟁 소지, 다수 지급</li>
+            <li><b>기계적 혈전제거</b> : 카테터 흡인 → 수술 담보 지급 어려움 → <b>별도 혈전제거 담보 필수</b></li>
+            <li><b>tPA(혈전용해)</b> : 약물 투여 → 수술 담보 지급 불가 → <b>혈전용해 담보 필수</b></li>
+          </ul>
+        </div>
+
+        <h3>현장 인용 8문장</h3>
+        <div class="script-box">
+          1. "뇌경색 10명 중 1명은 기계적 혈전제거 받습니다 (학회 2024)"<br>
+          2. "뇌졸중 5명 중 1명은 재발합니다 (KDCA 20.4%)"<br>
+          3. "4.5시간 골든타임 안에 가면 재개통 42%, 늦으면 10.7%"<br>
+          4. "심근경색 10년 새 54.5% 증가. 남성이 여성의 2.9배"<br>
+          5. "급성 심근경색 환자 94%가 스텐트 받습니다"<br>
+          6. "80세 이상 발생률이 30대의 30배"<br>
+          7. "10년형은 '발병 후 10년'. 60대 발병하면 70대까지 보장"<br>
+          8. "재발의 85~90%가 발병 후 10년 내 → 10년형도 실질 커버 90%"
+        </div>
       </div>
     </div>
 
@@ -1831,6 +1913,46 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
       </div>
     </div>
 
+    <!-- 케이스 스터디 -->
+    <div class="kn-section" id="kn-case-study">
+      <div class="kn-card">
+        <h2>케이스 스터디 — 실제 청구 시뮬레이션</h2>
+        <p style="font-size:14px;color:var(--g600);margin-bottom:14px;">35세 남성 가입 → 50대 발병 시나리오. 1,000만원 한도 기준 가공 수치 (실제 지급액은 가입 상품·진단·서류에 따라 다름).</p>
+
+        <h3>📌 사례 1 : 뇌경색 + tPA + 기계적 혈전제거 + ICU + 1년 내 재시술</h3>
+        <p style="font-size:16px;line-height:1.7;">50세 남자 뇌경색 발병 → 4시간 만에 응급실 → tPA 투여 → 카테터 기계적 혈전제거술 → ICU 5일 → 1년 후 재시술 1회.</p>
+
+        <table>
+          <tr><th>지급방식</th><th>수술</th><th>혈전용해</th><th>혈전제거</th><th>ICU</th><th>재시술</th><th>합계</th></tr>
+          <tr><td><b>회당 (DB 등)</b></td><td>800</td><td>300</td><td>700</td><td>500</td><td>800</td><td><b style="color:var(--green)">3,100만</b></td></tr>
+          <tr><td>연1회 분리</td><td>800</td><td>300</td><td>700</td><td>500</td><td>0</td><td>2,300만</td></tr>
+          <tr><td>통합1회</td><td>1,000</td><td>X</td><td>X</td><td>X</td><td>0</td><td><b style="color:var(--red)">1,000만</b></td></tr>
+        </table>
+        <div class="highlight"><b>실제 차이:</b> 회당과 통합1회 사이 <b>3.1배</b> 차이 발생. 재발/복합 시술이 잦은 순환계는 회당의 가치가 가장 높음.</div>
+
+        <h3>📌 사례 2 : 심근경색 + PCI + ICU 입원</h3>
+        <p style="font-size:16px;line-height:1.7;">55세 남자, 급성 심근경색 → 응급실 → PCI(스텐트 1개 삽입) → ICU 3일.</p>
+
+        <table>
+          <tr><th>지급방식</th><th>수술</th><th>ICU</th><th>합계</th></tr>
+          <tr><td>회당</td><td>1,000</td><td>500</td><td><b style="color:var(--green)">1,500만</b></td></tr>
+          <tr><td>연1회 분리</td><td>1,000</td><td>500</td><td>1,500만</td></tr>
+          <tr><td>통합1회</td><td>1,000</td><td>X</td><td>1,000만</td></tr>
+        </table>
+        <div class="key-point"><b>해석:</b> 단순 PCI 시나리오는 회당과 연1회 차이 X. 다만 PCI는 "수술" 약관 해석 분쟁 가능성 있어 <b>혈전제거 담보 명시 상품이 안전</b>.</div>
+
+        <h3>📌 사례 3 : 부정맥(심방세동) — 2대질병 vs 순환계 차이</h3>
+        <p style="font-size:16px;line-height:1.7;">60세 남자, 심방세동 진단 후 카테터 절제술(EPS).</p>
+
+        <table>
+          <tr><th>가입 상품</th><th>지급</th></tr>
+          <tr><td>2대질병만 (뇌졸중/심근경색)</td><td><b style="color:var(--red)">0원</b> (보장 X)</td></tr>
+          <tr><td>순환계 전체 (3-5종)</td><td><b style="color:var(--green)">수술 + 시술 한도 지급</b></td></tr>
+        </table>
+        <div class="warning"><b>주의:</b> 부정맥(심방세동)은 연간 환자 20만+ · 2대질병에서 가장 큰 공백. 가족력 있으면 순환계 전체 가입 권장.</div>
+      </div>
+    </div>
+
     <!-- 상담 화법 -->
     <div class="kn-section" id="kn-scripts">
       <div class="kn-card">
@@ -1851,6 +1973,107 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
         <div class="script-box">상품마다 3가지 유형이 있어요. 첫째, KB Plus처럼 혈전제거 별도 담보가 있어서 시술마다 지급되는 타입. 둘째, 삼성/한화처럼 별도 담보가 있는데 연 1회인 타입. 셋째, 혈전제거 담보가 따로 없지만 수술에 포함되는 타입 -- 이 경우 수술이 회당이면 혈전제거도 각각 지급이고, 수술이 연1회면 합쳐서 1회만 나와요. 어떤 상품이신지 확인해드릴게요.</div>
         <h3>8. 10년형과 만기형 조합 추천할 때</h3>
         <div class="script-box">10년형은 특정급여치료 항목으로 혈전제거술/스텐트/색전술까지 커버 범위가 넓어요. 대신 연1회 한도. 만기형은 수술을 매번 지급하는 대신 10년형보다 범위가 좁을 수 있어요. 성격이 다르니까 둘을 조합하면 서로 보완됩니다.</div>
+      </div>
+    </div>
+
+    <!-- 거절 처리 -->
+    <div class="kn-section" id="kn-objections">
+      <div class="kn-card">
+        <h2>현장 거절 처리 (Objection Handling)</h2>
+        <p style="font-size:14px;color:var(--g600);margin-bottom:14px;">자주 듣는 거절 5가지와 응대 화법.</p>
+
+        <h3>1. "이미 다른 보험 가입했어요"</h3>
+        <div class="script-box">"어떤 지급방식이세요? 통합1회면 이번에 발병해도 1건만 받으시는 거고, 회당이면 매번 받으세요. 순환계는 재발률 20%, 1년 내 재시술 8~15%라 회당 담보 추가 가입이 가치 있습니다. 한도도 분산해두시면 한 보험사 거절 시 안전망이고요."</div>
+
+        <h3>2. "보험료가 비싸요"</h3>
+        <div class="script-box">"10년형으로 가시면 만기형 대비 보험료 40% 절약하면서 실질 커버율은 90% 유지됩니다. '10년형'은 가입 후 10년이 아니라 <b>발병 후 10년</b> 보장이라, 60대 발병하면 70대까지 받으세요. 재발의 85~90%가 발병 후 10년 내 집중되어 있어서 실질 가치 차이가 거의 없어요."</div>
+
+        <h3>3. "저는 건강해요. 가족력도 없고요"</h3>
+        <div class="script-box">"30대 발병률은 10만명당 60건이지만 60대는 600건, 80대는 1,508건이에요. 그리고 보험은 발병 시점이 아니라 <b>가입 시점</b>에 결정돼요. 지금 건강할 때 가입해야 표준체로 들어갈 수 있고, 5년 뒤에 고혈압이라도 생기면 유병자 보험료(2~3배)나 거절될 수도 있어요. 골든타임 4.5시간 안에 모든 비용을 즉시 메워주는 게 주요치료비입니다."</div>
+
+        <h3>4. "회사 단체보험 있어요"</h3>
+        <div class="script-box">"단체보험은 (1) 퇴사하면 끝나고, (2) 한도가 보통 작고(2,000~5,000), (3) 갱신 시 회사 사정에 따라 감액·해지될 수 있어요. 또 단체보험은 정액형(주요치료비) 담보가 약한 경우가 많아요. 개인 주요치료비는 회사 다니는 동안 단체와 중복으로 받으세요. 100% 더 받으시는 거예요."</div>
+
+        <h3>5. "나중에 가입할게요"</h3>
+        <div class="script-box">"보험료는 매년 올라가요. 나이 한 살 차이로 5~10% 차이 나고, 더 큰 건 그 사이 건강검진에서 뭔가 발견되면 표준체 가입 못 해요. 현재 약관도 소비자에게 유리한 편이에요 — 매년 약관 개정으로 면책 늘고 진단 기준 까다로워져요. 지금 들어가시는 게 평생 가장 싼 시점이에요."</div>
+
+        <div class="highlight"><b>응대 핵심 원칙:</b> 부정 직접 반박 X · 공감 → 정보 제시 → 선택권. <i>"그렇게 생각하실 수 있어요. 그런데 한 가지 통계가..."</i></div>
+      </div>
+    </div>
+
+    <!-- 용어 사전 -->
+    <div class="kn-section" id="kn-glossary">
+      <div class="kn-card">
+        <h2>용어 사전</h2>
+        <p style="font-size:14px;color:var(--g600);margin-bottom:14px;">의학 용어 + 보험 용어. 클릭하면 펼쳐집니다.</p>
+
+        <h3>의학 용어</h3>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">tPA (정맥내 혈전용해술)</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">조직 플라스미노겐 활성제. 정맥으로 약물을 투여해 혈전을 녹이는 치료. 뇌경색 4.5시간 이내에만 시행. <b>"혈전용해" 담보 필수</b> — 수술 담보로는 안 됨.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">EVT (기계적 혈전제거술)</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">Endovascular Thrombectomy. 카테터를 혈관에 넣어 혈전을 직접 흡입/제거. 뇌경색 6~24시간 시행 가능. <b>"혈전제거" 담보 필수</b>. 2022년 기준 뇌경색 환자의 10.1%가 시행.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">PCI (관상동맥중재술)</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">Percutaneous Coronary Intervention. 카테터로 관상동맥에 스텐트 삽입. 급성 심근경색 환자의 94%가 시행. 약관에서 "수술"로 인정되는 경우가 많지만 <b>분쟁 소지</b> 있음.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">CABG (관상동맥우회술)</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">Coronary Artery Bypass Graft. 막힌 관상동맥을 우회하는 외과 수술. PCI 어려운 다혈관 협착에 시행. 명확한 "수술" 인정.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">STEMI / NSTEMI</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">ST 분절 상승 / 비상승 심근경색. STEMI는 더 심한 형태로 즉시 PCI 필요. 약관 적용은 동일.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">TIA (일과성 허혈발작)</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">뇌혈류 일시적 차단. 24시간 이내 회복. 뇌경색 진단확정으로 인정 안 되는 경우 다수 → <b>주요치료비 지급 안 됨</b>. 단 향후 뇌경색 위험 5배.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">ICH / SAH (뇌출혈)</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">Intracerebral / Subarachnoid Hemorrhage. 뇌내출혈 / 지주막하출혈. 뇌출혈성 뇌졸중. 개두술/뇌실배액술 등 외과 수술 동반 가능.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">ECMO / IABP</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">체외막산소공급 / 대동맥내풍선펌프. 중증 심근경색·심부전 시 사용하는 보조장치. 일반적으로 ICU 입원 동반 → ICU 담보 적용.</p>
+        </details>
+
+        <h3 style="margin-top:24px;">보험 용어</h3>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">진단확정</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">병리·영상·임상 검사로 질환을 의학적으로 확진. 보험사·약관마다 인정 기준 다름. 상품에 따라 CT/MRI/병리조직검사 중 어느 걸 인정하는지 차이.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">책임개시일</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">보험사 책임이 시작되는 날. 일반적으로 청약 후 보험료 1회 납입한 날. 그 이전 발병은 보장 X.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">면책기간</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">계약 후 일정 기간 보장 X. 주요치료비는 일반적으로 면책 없음. 일부 상품 90일 면책.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">감액기간</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">계약 후 일정 기간 감액 지급. 예: 가입 후 1년간 50% 감액. 보험사·상품마다 다름. 본 사이트 카드 헤더에 표시.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">갱신형 / 비갱신형</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;"><b>갱신형:</b> 일정 기간(예: 5/10년)마다 보험료 재산정. 나이·통계에 따라 인상. 처음엔 싸지만 나중엔 비싸짐.<br><b>비갱신형:</b> 가입 시 보험료 평생 동일. 처음엔 비싸도 장기 안정.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">통합1회 / 연1회 / 회당</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;"><b>통합1회:</b> 4개 담보(수술/혈전용해/혈전제거/ICU) 중 1건만 평생 1회 지급.<br><b>연1회:</b> 담보별 각각 연 1회 지급.<br><b>회당:</b> 시술마다 매번 지급. 가장 유리.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">표준체 / 유병자</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;"><b>표준체:</b> 건강한 사람 기준 보험료. 일반 고지형.<br><b>유병자:</b> 고혈압·당뇨 등 기저질환자. 표준체 대비 1.3~2.5배 보험료. 간편고지형/유병자형.</p>
+        </details>
+        <details style="margin-bottom:8px;padding:10px 14px;background:var(--g50);border-radius:6px;border:1px solid var(--g200);">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);">선지급 50%</summary>
+          <p style="margin-top:8px;font-size:15px;line-height:1.6;">진단 직후 일부 금액 즉시 지급. 예: KB·롯데·흥국 "선지급 50% (500만)" — 진단 시 500만원 우선 지급, 잔여는 후속 청구.</p>
+        </details>
       </div>
     </div>
   </div>
