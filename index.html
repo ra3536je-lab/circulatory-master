@@ -1696,7 +1696,7 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
       <div class="kn-card">
         <h2>순환계 주요치료비란?</h2>
         <p>순환계 질환(뇌졸중/심근경색/뇌혈관질환/허혈성심장질환 등)으로 <b>수술/혈전용해/혈전제거/중환자실 입원</b> 시 정액 지급되는 담보. 실손보다 <b>즉시 현금화</b> 가능.</p>
-        <div class="key-point"><b>핵심:</b> 실손="의료비 나중에 정산", 주요치료비="사유 발생 시 정해진 금액 즉시 지급". 고액 시술/ICU/재활 기간 생활비 공백을 직접 메웁���다.</div>
+        <div class="key-point"><b>핵심:</b> 실손="의료비 나중에 정산", 주요치료비="사유 발생 시 정해진 금액 즉시 지급". 고액 시술/ICU/재활 기간 생활비 공백을 직접 메웁니다.</div>
         <h3>왜 지금 순환계 주요치료비인가?</h3>
         <div class="stat-row"><span class="sl">심뇌혈관 사망 순위</span><span class="sv">암 제외 1위 (전체 사망의 25.4%)</span></div>
         <div class="stat-row"><span class="sl">연간 뇌경색 환자</span><span class="sv">52만 명 (2022)</span><span class="sc">5년간 7.5% 증가</span></div>
@@ -1835,7 +1835,7 @@ if(sessionStorage.getItem('pw-ok')==='1') document.getElementById('lock-screen')
     <div class="kn-section" id="kn-scripts">
       <div class="kn-card">
         <h2>현장 상담 화법</h2>
-        <h3>1. "뇌/허혈과 순환계 차이가 ���예요?"</h3>
+        <h3>1. "뇌/허혈과 순환계 차이가 뭐예요?"</h3>
         <div class="script-box">뇌졸중/심근경색만 보장하는 상품이랑, 순환계 질환 전반을 보장하는 상품이 있어요. 월 천원 차이인데, 30대 건강하시면 뇌/허혈만으로도 충분합니다. 부정맥이나 대동맥 가족력 있으시면 순환계 전체로 가시는 게 맞고요.</div>
         <h3>2. "뭐가 더 좋아요?"</h3>
         <div class="script-box">'좋다'가 아니라 '어떤 걸 대비하고 싶으신지'가 기준이에요. 고혈압/당뇨 있으시면 진짜 위험한 건 뇌/허혈이에요. 부정맥 신경 쓰이시면 순환계로 가시면 됩니다.</div>
@@ -2661,7 +2661,7 @@ function addProduct() {
   if (!clause) { showMsg('담보명을 입력해주세요.', 'error'); return; }
   if (isNaN(m) && isNaN(f)) { showMsg('보험료를 최소 1개 입력해주세요.', 'error'); return; }
 
-  // 동일 조건 상품이 있는지 확��
+  // 동일 조건 상품이 있는지 확인
   let existing = PRODUCTS.find(p =>
     p.range === range && p.period === period && p.hospital === hospital &&
     p.surg === surg && p.thr === thr && p.emb === emb && p.icu === icu
